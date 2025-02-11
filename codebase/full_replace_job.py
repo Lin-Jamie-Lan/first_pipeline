@@ -4,7 +4,8 @@ from utils.file_utils import read_csv, write_csv
 class FullReplaceJob(BaseJob):
     def run(self):
         self.validate()
-        self.input_data()
+        return self.input_data
+        # print(self.input_data)
         # existing_data = pd.read_csv(input_file['location'])
         # input_file = self.config['input_file']
         # self._output_data()

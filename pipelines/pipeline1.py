@@ -30,3 +30,10 @@ if __name__ == "__main__":
     config_path = "conf/config1.json"
     job2 = MergeJob(config_path)
     job2.run()
+
+
+
+    # if __name__ == "__main__":
+    # config_path = "conf/config1.json"
+    # job = FullReplaceJob(config_path)
+    # job.run()

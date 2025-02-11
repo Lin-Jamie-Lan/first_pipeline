@@ -1,8 +1,8 @@
-id,name,age,home
-1101,lin,36,ajax
-5214,deepy,35,ajax
-204,simi,25,brampton
-126,taran,25,northyork
-1223,tavleen,27,brampton
-2243,jasmine,28,brampton
-124,kirat,21,delhi
+id,name,age,home,marital_status
+1101,lin,36,ajax,True
+5214,deepy,35,ajax,True
+204,simi,25,brampton,False
+126,taran,25,northyork,False
+1223,tavleen,27,brampton,True
+2243,jasmine,28,brampton,True
+124,kirat,21,delhi,False
