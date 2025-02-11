@@ -1,0 +1,12 @@
+{
+    "input_file": {
+        "location": "input/sample_data.csv",
+        "type": "csv"
+    },
+    "schema_file": "schema/schema1.json",
+    "output_file": {
+        "location": "output/sample_data_output2.csv",
+        "type": "csv",
+        "primary_key": "id"
+    }
+}

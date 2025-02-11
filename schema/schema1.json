@@ -1,0 +1,12 @@
+{
+"type": "array",
+"items": {
+    "properties": {
+        "id": {"type": "number"},
+        "name": {"type": "string"},
+        "age": {"type": "number"}
+    },
+    "required": ["id", "name"]
+}
+
+}
