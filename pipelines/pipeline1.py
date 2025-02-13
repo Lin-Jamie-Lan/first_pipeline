@@ -7,6 +7,7 @@ from utils.file_utils import write_csv
 
 if __name__ == "__main__":
     config_path = "conf/config1.json"
+    # create an object
     job = FullReplaceJob(config_path)
 
     # Run the FullReplaceJob to get the initial DataFrame
@@ -17,10 +18,10 @@ if __name__ == "__main__":
         raise ValueError("The DataFrame returned by job.run() is None. Check the FullReplaceJob implementation.")
     
     # Create an instance of the transformer and specify the id_column
-    transformer = transform(config_path)
+    transform = transform(config_path)
 
     # Instantiate the transformer
-    marital_status_transformer = transformer.maritalStatus(df, id_column='id')
+    marital_status_transformer = transform.maritalStatus(df, id_column='id')
 
     # # Apply the transformer to the DataFrame
     # transformed_df = marital_status_transformer.execute(df)
