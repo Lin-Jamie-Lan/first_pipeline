@@ -1,8 +1,9 @@
-id,name,age,home
-1101,lin,36,ajax
-5214,deepy,35,ajax
-204,simi,25,brampton
-126,taran,25,northyork
-1223,tavleen,27,brampton
-2243,jasmine,28,brampton
-124,kirat,21,delhi
+id,name,age,home,hobby
+1101,lin,36,ajax,reading
+5214,deepy,35,ajax,coding
+204,simi,25,brampton,dancing
+126,taran,25,northyork,painting
+1223,tavleen,27,brampton,running
+2243,jasmine,28,brampton,laughing
+124,kirat,21,delhi,posing
+3535,kishu,30,georgetown,cooking
