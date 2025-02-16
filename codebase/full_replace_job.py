@@ -3,7 +3,7 @@ from utils.file_utils import read_csv, write_csv
 
 class FullReplaceJob(BaseJob):
     def run(self):
-        self.validate()
+        self.validate_input_schema()
         return self.input_data
         # print(self.input_data)
         # existing_data = pd.read_csv(input_file['location'])

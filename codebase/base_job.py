@@ -38,7 +38,7 @@ class BaseJob:
             raise ValueError("Unsupported file type")
         
 
-    def validate(self):
+    def validate_input_schema(self):
         validate_schema(self.input_data, self.schema)
 
     def run(self):

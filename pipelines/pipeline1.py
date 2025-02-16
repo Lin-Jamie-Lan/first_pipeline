@@ -23,19 +23,8 @@ if __name__ == "__main__":
 
     # Instantiate the transformer
     marital_status_transformer = transforming.maritalStatus(df, id_column='id')
-
+    df_timestamp=transforming.timeStamp(df)
     # # Apply the transformer to the DataFrame
     # transformed_df = marital_status_transformer.execute(df)
 
-    write_csv(marital_status_transformer, "output/sample_data_output.csv")
-
-    config_path = "conf/config1.json"
-    job2 = MergeJob(config_path)
-    job2.run()
-
-
-
-    # if __name__ == "__main__":
-    # config_path = "conf/config1.json"
-    # job = FullReplaceJob(config_path)
-    # job.run()
+    write_csv(df_timestamp, "output/sample_data_output.csv")
