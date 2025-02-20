@@ -3,20 +3,23 @@ from codebase.base_job import BaseJob
 from utils.file_utils import write_csv
 from codebase.transformer import transform
 
-class MergeJob(BaseJob):
+class MergeJobSimple(BaseJob):
     def run(self):
         self.validate_input_schema()
 
         output_file = self.config['output_file']
 
         new_data = pd.DataFrame(self.input_data)
-        transform.timeStamp(self, new_data)
+        transform.timeStamp(self, new_data, timestamp_type='update_timestamp')
         try:
             existing_data = pd.read_csv(output_file['location'])
-        except:
+        except pd.errors.EmptyDataError:
             existing_data=new_data
-        print(existing_data)
+            transform.timeStamp(self, existing_data, timestamp_type='ingest_timestamp')
+            transform.timeStamp(self, existing_data, timestamp_type='update_timestamp')
         
+        print(existing_data)
+        print(new_data)
         # concated_data = pd.concat([existing_data, new_data], ignore_index=False
         #                         ).drop_duplicates(subset=[self.config['output_file']['primary_key']])
         
@@ -32,15 +35,17 @@ class MergeJob(BaseJob):
                                           suffixes=('_e', '_n') )
 
         pd.set_option('display.max_columns', None)
-        print(merged_data)
+
+        # print(merged_data)
         newdf=pd.DataFrame()
-
-
         for col in merged_data.columns:
             if col in [self.config['output_file']['primary_key']]:
                 newdf[col]=merged_data[col]
-            elif "_e" in col :
-                basecol=col.split("_e")[0]
-                # print(basecol)
+            elif 'ingest_timestamp' in col:
+                newdf['ingest_timestamp']=merged_data['ingest_timestamp'].fillna(merged_data['update_timestamp_n'])
+            elif 'update_timestamp' in col:
+                newdf['update_timestamp']=merged_data['update_timestamp_n']
+            elif "_n" in col and 'timestamp' not in col:
+                basecol=col.split("_n")[0]
                 newdf[basecol]=merged_data[basecol+'_n']
-        return newdf
+        return(newdf)

@@ -10,7 +10,7 @@ class transform(BaseJob):
             raise ValueError(f"Column '{id_column}' not found in DataFrame!!!!!")
         return df
     
-    def timeStamp(self, df):
+    def timeStamp(self, df, timestamp_type):
         now=datetime.now()
-        df['ingesting_timestamp'] = now
+        df[timestamp_type] = now
         return df
