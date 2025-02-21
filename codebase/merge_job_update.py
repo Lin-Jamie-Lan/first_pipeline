@@ -16,8 +16,8 @@ class MergeJobUpdate(BaseJob):
             existing_data = pd.read_csv(output_file['location'])
         except pd.errors.EmptyDataError:
             existing_data=new_data
-            transform.timeStamp(self, existing_data, timestamp_type='ingest_timestamp')
-            transform.timeStamp(self, existing_data, timestamp_type='update_timestamp')
+            # transform.timeStamp(self, existing_data, timestamp_type='ingest_timestamp')
+            # transform.timeStamp(self, existing_data, timestamp_type='update_timestamp')
         
         # print(existing_data)
         # print(new_data)
@@ -56,7 +56,7 @@ class MergeJobUpdate(BaseJob):
                     cell_value_n = row[basecol+'_n']
                     if cell_value_e != cell_value_n:
                         newdf.at[index, basecol]=row[basecol+'_n']
-                        newdf.at[index, 'ingest_timestamp']=row['ingest_timestamp_n']
+                        newdf.at[index, 'update_timestamp']=row['update_timestamp_n']
                     else:
                         newdf.at[index, basecol]=row[basecol+'_e']       
 
