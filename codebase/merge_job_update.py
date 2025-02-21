@@ -16,20 +16,7 @@ class MergeJobUpdate(BaseJob):
             existing_data = pd.read_csv(output_file['location'])
         except pd.errors.EmptyDataError:
             existing_data=new_data
-            # transform.timeStamp(self, existing_data, timestamp_type='ingest_timestamp')
-            # transform.timeStamp(self, existing_data, timestamp_type='update_timestamp')
         
-        # print(existing_data)
-        # print(new_data)
-        # concated_data = pd.concat([existing_data, new_data], ignore_index=False
-        #                         ).drop_duplicates(subset=[self.config['output_file']['primary_key']])
-        
-        # joined_data = existing_data.join(new_data, on=id_column, how="outer", lsuffix="_x", rsuffix="_y")
-
-        # print("check the pk: ", output_file['primary_key'])
-        # print("check again:", [self.config['output_file']['primary_key']])
-        # check the pk:  id
-        # check again: ['id']
 
         merged_data = existing_data.merge(new_data, how="outer", 
                                           on=[self.config['output_file']['primary_key']], 
@@ -44,9 +31,10 @@ class MergeJobUpdate(BaseJob):
         for index, row in merged_data.iterrows():
             if pd.isnull(row['update_timestamp_e']):
                 newdf.at[index, 'update_timestamp']=row['update_timestamp_n']
+                newdf.at[index, 'ingest_timestamp']=row['ingest_timestamp_n']
             else:
                 newdf.at[index, 'update_timestamp']=row['update_timestamp_e']
-            newdf.at[index, 'ingest_timestamp']=row['ingest_timestamp_e']
+                newdf.at[index, 'ingest_timestamp']=row['ingest_timestamp_e']
             for column_name in merged_data.columns:
                 if column_name in [self.config['output_file']['primary_key']]:
                     newdf.at[index, column_name]=row[column_name]
