@@ -1,0 +1,12 @@
+{
+    "input_file": {
+        "location": "input/sample_data.csv",
+        "type": "csv"
+    },
+    "schema_file": "schema/schema1.json",
+    "output_file": {
+        "type": "sqlite",
+        "primary_key": "id",
+        "table_name": "sample"
+    }
+}

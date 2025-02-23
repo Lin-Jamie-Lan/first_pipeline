@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from utils.file_utils import read_json, read_csv, write_csv, write_json
 from utils.schema_utils import validate_schema
+from database.manager import DatabaseManager
 
 class BaseJob:
     def __init__(self, config_path):
@@ -37,9 +38,21 @@ class BaseJob:
         else:
             raise ValueError("Unsupported file type")
         
-
     def validate_input_schema(self):
         validate_schema(self.input_data, self.schema)
 
     def run(self):
         raise NotImplementedError("Subclasses should implement this method")
+    
+    def save_output(self, data: pd.DataFrame):
+        """Save data to CSV or SQLite based on config."""
+        output_config = self.config['output_file']
+        
+        if output_config['type'] == 'csv':
+            write_csv(data, output_config['location'])
+        elif output_config['type'] == 'sqlite':
+            db_manager = DatabaseManager()
+            table_name = output_config.get('table_name')  # Get table name from config
+            db_manager.save_dataframe(data, table_name=table_name)
+        else:
+            raise ValueError("Unsupported output type")

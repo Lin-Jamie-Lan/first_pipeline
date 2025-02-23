@@ -1,3 +1,4 @@
 pandas
 jsonschema
 pytest
+sqlite3python pipelines/pipeline1.py
