@@ -12,17 +12,17 @@ This is a Python-based pipeline framework designed to process JSON and CSV files
 ## Folder Structure
 pipeline_framework/
 │
-├── codebase/ # Core job classes, functions: base_job, full_replace_job, merge_job_simple, merge_job_update, transformer
-├── conf/ # Configuration file for each pipeline
-├── database/ # SQLite connection and management, connector, manager
-├── input # input folder for csv or json data
-├── output/ # output folder for csv or json data 
-├── pipelines/ # Pipeline script for each pipeline
-├── schema/ # JSON schema files
-├── tests/ # Unit tests
-├── utils/ # Utility functions
-├── README.md # Project documentation
-└── requirements.txt # Python dependencies
+├── codebase/ # Core job classes, functions: base_job, full_replace_job, merge_job_simple, merge_job_update, transformer. 
+├── conf/ # Configuration file for each pipeline. 
+├── database/ # SQLite connection and management, connector, manager. 
+├── input # input folder for csv or json data. 
+├── output/ # output folder for csv or json data. 
+├── pipelines/ # Pipeline script for each pipeline. 
+├── schema/ # JSON schema files. 
+├── tests/ # Unit tests. 
+├── utils/ # Utility functions. 
+├── README.md # Project documentation. 
+└── requirements.txt # Python dependencies. 
 
 ## Prerequisites
 - Python 3.7 or higher
@@ -42,6 +42,99 @@ select * from sample;
 ### create table is optional
 
 ## command to run pipeline and test
-python pipelines/pipeline4.py 
-pytest tests/
+python pipelines/pipeline4.py\
+pytest tests/\
 
+
+
+# Here's how the components are connected:
+
+1. pipelines/: 
+Contains the pipeline scripts that orchestrate the workflow.
+
+Depends on:
+codebase/ for job classes.
+conf/ for configuration files.
+schema/ for schema validation.
+
+2. codebase/: 
+Contains the core job classes (BaseJob, FullReplaceJob, MergeJob).
+
+Depends on:
+utils/ for utility functions.
+database/ for SQLite operations.
+
+3. utils/: Contains utility functions for file handling and schema validation.
+
+Used by:
+codebase/ for common functionality.
+
+4. database/: 
+Handles SQLite connections and database operations.
+
+Used by:
+codebase/ for saving data to SQLite.
+
+5. conf/: 
+Contains configuration files (JSON) for input/output settings.
+
+Used by:
+pipelines/ to configure jobs.
+
+6. schema/: 
+Contains JSON schema files for input validation.
+
+Used by:
+codebase/ for schema validation.
+
+7. tests/: 
+Contains unit tests for the framework.
+
+Tests:
+codebase/, utils/, and database/.
+
+## Diagram
++-----------------+       +-----------------+       +-----------------+
+|   pipelines/    |       |    codebase/    |       |     utils/      |
+|-----------------|       |-----------------|       |-----------------|
+| - pipeline1.py  |<------| - base_job.py   |<------| - file_utils.py |
+| - pipeline2.py  |       | - full_replace_job.py | - schema_utils.py |
+| - pipeline3.py  |       | - merge_job.py  |       +-----------------+
+| - pipeline4.py  |       +-----------------+
++-----------------+               ^
+        |                         |
+        v                         |
++-----------------+       +-----------------+
+|     conf/       |       |   database/     |
+|-----------------|       |-----------------|
+| - config1.json  |       | - connector.py  |
+| - config2.json  |       | - manager.py    |
+| - config3.json  |       +-----------------+
+| - config4.json  |               ^
++-----------------+               |
+        |                         |
+        v                         |
++-----------------+       +-----------------+
+|    schema/      |       |     tests/      |
+|-----------------|       |-----------------|
+| - schema1.json  |       | - test_base_job.py |
+| - schema2.json  |       | - test_full_replace_job.py |
+| - schema3.json  |       | - test_merge_job.py |
+| - schema4.json  |       +-----------------+
++-----------------+
+
+# Mermaid
+erDiagram
+    pipelines ||--o{ codebase : "depends on"
+    pipelines ||--o{ conf : "depends on"
+    pipelines ||--o{ schema : "depends on"
+    codebase ||--o{ utils : "depends on"
+    codebase ||--o{ database : "depends on"
+    utils ||--o{ codebase : "used by"
+    database ||--o{ codebase : "used by"
+    conf ||--o{ pipelines : "used by"
+    schema ||--o{ codebase : "used by"
+    tests ||--o{ codebase : "tests"
+    tests ||--o{ utils : "tests"
+    tests ||--o{ database : "tests"
+### https://mermaid-js.github.io/mermaid-live-editor/
