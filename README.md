@@ -125,16 +125,10 @@ codebase/, utils/, and database/.
 
 # Mermaid
 erDiagram
-    pipelines ||--o{ codebase : "depends on"
-    pipelines ||--o{ conf : "depends on"
-    pipelines ||--o{ schema : "depends on"
-    codebase ||--o{ utils : "depends on"
-    codebase ||--o{ database : "depends on"
-    utils ||--o{ codebase : "used by"
-    database ||--o{ codebase : "used by"
-    conf ||--o{ pipelines : "used by"
-    schema ||--o{ codebase : "used by"
-    tests ||--o{ codebase : "tests"
-    tests ||--o{ utils : "tests"
-    tests ||--o{ database : "tests"
+    pipelines ||--o{ codebase : "call"
+    pipelines ||--o{ database : "call"
+    pipelines ||--o{ conf : "read"
+    conf ||--o{ schema : "read"
+    codebase ||--o{ utils : "call"
+    codebase ||--o{ schema : "validate"
 ### https://mermaid-js.github.io/mermaid-live-editor/
