@@ -3,7 +3,7 @@ import sqlite3
 from typing import Optional
 
 class DatabaseConnector:
-    def __init__(self):
+    def __init__(self, db_path:str):
         self.db_path = os.getenv("SQLITE_DB_PATH")
         self.table_name = os.getenv("SQLITE_TABLE_NAME")
         self.conn: Optional[sqlite3.Connection] = None
