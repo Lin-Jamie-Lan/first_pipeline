@@ -1,7 +1,7 @@
 import pandas as pd
 from codebase.base_job import BaseJob
 from utils.file_utils import write_csv
-from codebase.transformer import transform
+from codebase.transformer import Transform
 
 class MergeJobSimple(BaseJob):
     def run(self):
@@ -10,13 +10,13 @@ class MergeJobSimple(BaseJob):
         output_file = self.config['output_file']
 
         new_data = pd.DataFrame(self.input_data)
-        transform.timeStamp(self, new_data, timestamp_type='update_timestamp')
+        Transform.timeStamp(self, new_data, timestamp_type='update_timestamp')
         try:
             existing_data = pd.read_csv(output_file['location'])
         except pd.errors.EmptyDataError:
             existing_data=new_data
-            transform.timeStamp(self, existing_data, timestamp_type='ingest_timestamp')
-            transform.timeStamp(self, existing_data, timestamp_type='update_timestamp')
+            Transform.timeStamp(self, existing_data, timestamp_type='ingest_timestamp')
+            Transform.timeStamp(self, existing_data, timestamp_type='update_timestamp')
         
         print(existing_data)
         print(new_data)

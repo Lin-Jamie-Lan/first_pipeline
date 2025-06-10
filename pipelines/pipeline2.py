@@ -1,6 +1,5 @@
-from codebase.full_replace_job import FullReplaceJob
 from codebase.merge_job_simple import MergeJobSimple
-from codebase.transformer import transform
+from codebase.transformer import Transform
 import pandas as pd
 from utils.file_utils import write_csv
 

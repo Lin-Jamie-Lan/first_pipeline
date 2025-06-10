@@ -51,6 +51,7 @@ pytest tests/\
 
 1. pipelines/: 
 Contains the pipeline scripts that orchestrate the workflow.
+Define goal of the action, eg: perform x kind of data transformation
 
 Depends on:
 codebase/ for job classes.
@@ -58,13 +59,14 @@ conf/ for configuration files.
 schema/ for schema validation.
 
 2. codebase/: 
-Contains the core job classes (BaseJob, FullReplaceJob, MergeJob).
+Contains the core job classes (BaseJob, FullReplaceJob, MergeJob, Transform).
 
 Depends on:
 utils/ for utility functions.
 database/ for SQLite operations.
 
-3. utils/: Contains utility functions for file handling and schema validation.
+3. utils/: 
+Contains utility functions for file handling and schema validation, eg: read_csv, write_json, validate_schema
 
 Used by:
 codebase/ for common functionality.
@@ -76,16 +78,16 @@ Used by:
 codebase/ for saving data to SQLite.
 
 5. conf/: 
-Contains configuration files (JSON) for input/output settings.
+Contains configuration files (JSON) for input/output location, aka where to read data, where to load data, type of data
 
 Used by:
-pipelines/ to configure jobs.
+pipelines/ as input, to provide configuration of input/output/data type etc.
 
 6. schema/: 
 Contains JSON schema files for input validation.
 
 Used by:
-codebase/ for schema validation.
+codebase/ for schema validation, first step before any transformation.
 
 7. tests/: 
 Contains unit tests for the framework.

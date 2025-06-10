@@ -1,5 +1,5 @@
 from codebase.full_replace_job import FullReplaceJob
-from codebase.transformer import transform
+from codebase.transformer import Transform
 import pandas as pd
 from utils.file_utils import write_csv
 from database.manager import DatabaseManager
@@ -19,7 +19,7 @@ if __name__ == "__main__":
         raise ValueError("The DataFrame returned by job.run() is None. Check the FullReplaceJob implementation.")
     
     # Create an instance of the transformer and specify the id_column
-    transforming = transform(config_path) #need config_path, because def __init__(self, config_path) in the class
+    transforming = Transform(config_path) #need config_path, because def __init__(self, config_path) in the class
 
     # Instantiate the transformer
     marital_status_transformer = transforming.maritalStatus(df, id_column='id')

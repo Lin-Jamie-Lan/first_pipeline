@@ -11,4 +11,4 @@ def test_base_job_initialization():
 def test_base_job_validate():
     config_path = "conf/config1.json"
     job = BaseJob(config_path)
-    job.validate()
+    job.validate_input_schema()

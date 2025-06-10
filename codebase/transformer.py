@@ -3,7 +3,7 @@ from codebase.base_job import BaseJob
 from utils.file_utils import write_csv
 from datetime import datetime
 
-class transform(BaseJob):
+class Transform(BaseJob):
     def maritalStatus(self, df, id_column='id'):
         df['marital_status'] = df[id_column].apply(lambda x: True if len(str(x)) == 4 else False)
         if id_column not in df.columns:
